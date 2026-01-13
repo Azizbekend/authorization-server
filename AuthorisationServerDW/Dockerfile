@@ -21,4 +21,4 @@ ENV ASPNETCORE_URLS=http://0.0.0.0:8089
 
 EXPOSE 8089
 
-ENTRYPOINT ["dotnet", "ResearcherApiPrototype_1.dll"]
+ENTRYPOINT ["dotnet", "AuthorisationServerDW.dll"]
