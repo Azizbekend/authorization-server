@@ -1,15 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AuthorisationServerDW.Models
+namespace AuthorisationServerDW.DTOs
 {
-    public class CreateUserDTO
+    public class UserCreateDTO
     {
-        [Key]
-        public int Id { get; set; }
-        [MaxLength(20)]
         public string? Login { get; set; }
-        [MaxLength(20)]
         public string? Password { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -17,9 +13,7 @@ namespace AuthorisationServerDW.Models
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Adress { get; set; }
-        public bool IsEmailApproved { get; set; }
-        [ForeignKey("BaseRoles")]
+        public bool IsEmailApproved { get; set; } = false;
         public int BaseRoleId { get; set; }
-        public BaseRole BaseRole { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 using AuthorisationServerDW;
+using AuthorisationServerDW.Repos.CompanyRepo;
+using AuthorisationServerDW.Repos.UserRepo;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
+builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<ICompanyRepo, CompanyRepo>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,6 +33,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

@@ -10,7 +10,8 @@ namespace AuthorisationServerDW
         }
 
         public DbSet<BaseRole> BaseRoles { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<CreateUserDTO> Users { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<UserCompany> UsersCompany { get; set; }
     }
 }

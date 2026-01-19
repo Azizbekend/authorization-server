@@ -22,10 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Repos\CompanyRepo\" />
     <Folder Include="Repos\RoleRepo\" />
-    <Folder Include="Repos\UserRepo\" />
   </ItemGroup>
 
 </Project>
