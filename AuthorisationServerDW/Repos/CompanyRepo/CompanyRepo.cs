@@ -13,9 +13,23 @@ namespace AuthorisationServerDW.Repos.CompanyRepo
             _context = context;
         }
 
-        public Task<Company> CreateCompany(CreateCompanyDTO company)
+        public async Task<Company> CreateCompany(CreateCompanyDTO dto)
         {
-            throw new NotImplementedException();
+            var company = new Company()
+            {
+                CompanyName = dto.CompanyName,
+                INN = dto.INN,
+                KPP = dto.KPP,
+                OGRN = dto.OGRN,
+                ShortName = dto.ShortName,
+                JuridicalAddress = dto.JuridicalAddress,
+                DirectorName = dto.DirectorName,
+                PhoneNumber = dto.PhoneNumber,
+                FactAdress = dto.FactAdress
+            };
+            _context.Companies.Add(company);
+            await _context.SaveChangesAsync();
+            return company;
         }
 
         public async Task<Company> GetCompanyById(int id)
