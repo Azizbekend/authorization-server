@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AuthorisationServerDW.Models
 {
-    public class CreateUserDTO
+    public class User
     {
         [Key]
         public int Id { get; set; }

@@ -1,4 +1,5 @@
-﻿using AuthorisationServerDW.Models;
+﻿using AuthorisationServerDW.DTOs;
+using AuthorisationServerDW.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuthorisationServerDW
@@ -10,7 +11,7 @@ namespace AuthorisationServerDW
         }
 
         public DbSet<BaseRole> BaseRoles { get; set; }
-        public DbSet<CreateUserDTO> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<UserCompany> UsersCompany { get; set; }
     }

@@ -5,10 +5,12 @@ namespace AuthorisationServerDW.Repos.UserRepo
 {
     public interface IUserRepo
     {
-        Task<CreateUserDTO> GetUserById(int id);
-        Task<CreateUserDTO> GetUserByName(string username);
-        Task<CreateUserDTO> CreateUser(UserCreateDTO dto);
-        Task<CreateUserDTO> Authorise(UserAuthorisationBetaDTO dto);
+        Task<User> GetUserById(int id);
+        Task<User> GetUserByName(string username);
+        Task<User> CreateUser(UserCreateDTO dto);
+        Task<User> Authorise(UserAuthorisationBetaDTO dto);
         Task AttachUsersCompany(UserCompanyAttach dto);
+        Task<ICollection<User>> GetUserByCompany(int id);
+        
     }
 }

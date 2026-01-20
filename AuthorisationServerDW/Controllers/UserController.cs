@@ -30,6 +30,13 @@ namespace AuthorisationServerDW.Controllers
             var user = await _userRepo.GetUserByName(name);
             return Ok(user);
         }
+
+        [HttpGet("users/companyUsers/all")]
+        public async Task <ActionResult<ICollection<User>>> GetCompanyUsers(int id)
+        {
+            var list = await _userRepo.GetUserByCompany(id);
+            return Ok(list);
+        }
         [HttpPost("users/user/create")]
         public async Task<IActionResult> Create(UserCreateDTO user)
         {

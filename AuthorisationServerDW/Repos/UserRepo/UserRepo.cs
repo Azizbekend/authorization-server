@@ -25,7 +25,7 @@ namespace AuthorisationServerDW.Repos.UserRepo
             await _context.SaveChangesAsync();
         }
 
-        public async Task<CreateUserDTO> Authorise(UserAuthorisationBetaDTO dto)
+        public async Task<User> Authorise(UserAuthorisationBetaDTO dto)
         {
             var check = await _context.Users.FirstOrDefaultAsync(x => x.Login == dto.Login && x.Password == dto.Password);
             if (check != null)
@@ -36,9 +36,9 @@ namespace AuthorisationServerDW.Repos.UserRepo
                 throw new Exception("Login or password is incorrect!");
         }
 
-        public async Task<CreateUserDTO> CreateUser(UserCreateDTO dto)
+        public async Task<User> CreateUser(UserCreateDTO dto)
         {
-            var user = new CreateUserDTO()
+            var user = new User()
             {
                 Login = dto.Login,
                 Password = dto.Password,
@@ -55,7 +55,19 @@ namespace AuthorisationServerDW.Repos.UserRepo
             return user;
         }
 
-        public async Task<CreateUserDTO> GetUserById(int id)
+        public async Task<ICollection<User>> GetUserByCompany(int id)
+        {
+            var userLink = await _context.UsersCompany.Where(x => x.CompanyId == id).ToListAsync();
+            var users = new List<User>();
+            foreach (var user in userLink)
+            {
+                var u = await _context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
+                users.Add(u);
+            }
+            return users;
+        }
+
+        public async Task<User> GetUserById(int id)
         {
             var a = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (a == null)
@@ -66,7 +78,7 @@ namespace AuthorisationServerDW.Repos.UserRepo
                 return a;
         }
 
-        public async Task<CreateUserDTO> GetUserByName(string username)
+        public async Task<User> GetUserByName(string username)
         {
             var a = await _context.Users.FirstOrDefaultAsync(x => x.Login == username);
             if (a == null)
