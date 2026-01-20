@@ -9,7 +9,7 @@ namespace AuthorisationServerDW.Models
         public int Id { get; set; }
         [ForeignKey("Users")]
         public int UserId { get; set; }
-        public CreateUserDTO User { get; set; }
+        public User User { get; set; }
         [ForeignKey("Companies")]
         public int CompanyId { get; set; }
         public Company Company { get; set; }
