@@ -19,19 +19,19 @@ namespace AuthorisationServerDW.Controllers
         [HttpGet("companies/company/id")]
         public async Task<IActionResult> GetById(int id)
         {
-            var a = _companyRepo.GetCompanyById(id);
+            var a = await _companyRepo.GetCompanyById(id);
             return Ok(a);
         }
         [HttpGet("companies/company/name")]
         public async Task<IActionResult> GetById(string name)
         {
-            var a = _companyRepo.GetCompanyByName(name);
+            var a = await _companyRepo.GetCompanyByName(name);
             return Ok(a);
         }
         [HttpGet("companies/company/inn")]
         public async Task<IActionResult> GetByInn(string inn)
         {
-            var a = _companyRepo.GetCompanyByINN(inn);
+            var a = await _companyRepo.GetCompanyByINN(inn);
             return Ok(a);
         }
         [HttpPost("companies/company/create")]
