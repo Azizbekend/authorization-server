@@ -20,14 +20,14 @@ namespace AuthorisationServerDW.Controllers
         [HttpGet("users/user/id")]
         public async Task<IActionResult> GetById(int id)
         {
-            var user = _userRepo.GetUserById(id);
+            var user = await _userRepo.GetUserById(id);
             return Ok(user);
         }
 
         [HttpGet("users/user/name")]
         public async Task<IActionResult> GetByName(string name)
         {
-            var user = _userRepo.GetUserByName(name);
+            var user = await _userRepo.GetUserByName(name);
             return Ok(user);
         }
         [HttpPost("users/user/create")]
@@ -41,7 +41,7 @@ namespace AuthorisationServerDW.Controllers
         {
             try
             {
-                var a = _userRepo.Authorise(authorisationBetaDTO);
+                var a = await _userRepo.Authorise(authorisationBetaDTO);
                 return Ok(a);
             }
             catch (Exception ex)
