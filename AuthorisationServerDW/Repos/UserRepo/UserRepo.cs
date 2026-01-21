@@ -57,7 +57,7 @@ namespace AuthorisationServerDW.Repos.UserRepo
 
         public async Task<ICollection<User>> GetUserByCompany(int id)
         {
-            var userLink = await _context.UsersCompany.Where(x => x.CompanyId == id).ToListAsync();
+            var userLink = await _context.UsersCompany.Where(x => x.UserId == id).ToListAsync();
             var users = new List<User>();
             foreach (var user in userLink)
             {
