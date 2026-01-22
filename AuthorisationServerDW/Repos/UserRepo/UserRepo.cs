@@ -15,22 +15,41 @@ namespace AuthorisationServerDW.Repos.UserRepo
 
         public async Task AttachUsersCompany(UserCompanyAttach dto)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Id == dto.UserId);
-            var link = new UserCompany()
+            var usercompany = await _context.UsersCompany.FirstOrDefaultAsync(x => x.UserId == dto.UserId);
+            if (usercompany != null) { throw new Exception("User already attachet to company!"); }
+            else
             {
-                UserId = dto.UserId,
-                CompanyId = dto.CompanyId
-            };
-            _context.UsersCompany.Add(link);
-            await _context.SaveChangesAsync();
+                var user = _context.Users.FirstOrDefault(x => x.Id == dto.UserId);
+                var link = new UserCompany()
+                {
+                    UserId = dto.UserId,
+                    CompanyId = dto.CompanyId
+                };
+                _context.UsersCompany.Add(link);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public async Task<User> Authorise(UserAuthorisationBetaDTO dto)
+        public async Task<UserAuthorisationResponseDTO> Authorise(UserAuthorisationBetaDTO dto)
         {
             var check = await _context.Users.FirstOrDefaultAsync(x => x.Login == dto.Login && x.Password == dto.Password);
             if (check != null)
             {
-                return check;
+                var usercomp = await _context.UsersCompany.FirstOrDefaultAsync(x => x.UserId == check.Id);
+                var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == usercomp.CompanyId);
+                var res = new UserAuthorisationResponseDTO()
+                {
+                    UserId = check.Id,
+                    FirstName = check.FirstName,
+                    LastName = check.LastName,
+                    Patronymic = check.Patronymic,
+                    Email = check.Email,
+                    PhoneNumber = check.PhoneNumber,
+                    BaseRoleId = check.BaseRoleId,
+                    Adress = check.Adress,
+                    CompanyId = company.Id
+                };
+                return res;
             }
             else
                 throw new Exception("Login or password is incorrect!");

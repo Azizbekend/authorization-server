@@ -8,7 +8,7 @@ namespace AuthorisationServerDW.Repos.UserRepo
         Task<User> GetUserById(int id);
         Task<User> GetUserByName(string username);
         Task<User> CreateUser(UserCreateDTO dto);
-        Task<User> Authorise(UserAuthorisationBetaDTO dto);
+        Task<UserAuthorisationResponseDTO> Authorise(UserAuthorisationBetaDTO dto);
         Task AttachUsersCompany(UserCompanyAttach dto);
         Task<ICollection<User>> GetUserByCompany(int id);
         
