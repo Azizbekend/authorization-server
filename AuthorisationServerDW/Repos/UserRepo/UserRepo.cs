@@ -36,20 +36,38 @@ namespace AuthorisationServerDW.Repos.UserRepo
             if (check != null)
             {
                 var usercomp = await _context.UsersCompany.FirstOrDefaultAsync(x => x.UserId == check.Id);
-                var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == usercomp.CompanyId);
-                var res = new UserAuthorisationResponseDTO()
+                if (usercomp != null)
                 {
-                    UserId = check.Id,
-                    FirstName = check.FirstName,
-                    LastName = check.LastName,
-                    Patronymic = check.Patronymic,
-                    Email = check.Email,
-                    PhoneNumber = check.PhoneNumber,
-                    BaseRoleId = check.BaseRoleId,
-                    Adress = check.Adress,
-                    CompanyId = company.Id
-                };
-                return res;
+                    var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == usercomp.CompanyId);
+                    var res = new UserAuthorisationResponseDTO()
+                    {
+                        UserId = check.Id,
+                        FirstName = check.FirstName,
+                        LastName = check.LastName,
+                        Patronymic = check.Patronymic,
+                        Email = check.Email,
+                        PhoneNumber = check.PhoneNumber,
+                        BaseRoleId = check.BaseRoleId,
+                        Adress = check.Adress,
+                        CompanyId = company.Id
+                    };
+                    return res;
+                }
+                else
+                {
+                    var res = new UserAuthorisationResponseDTO()
+                    {
+                        UserId = check.Id,
+                        FirstName = check.FirstName,
+                        LastName = check.LastName,
+                        Patronymic = check.Patronymic,
+                        Email = check.Email,
+                        PhoneNumber = check.PhoneNumber,
+                        BaseRoleId = check.BaseRoleId,
+                        Adress = check.Adress
+                    };
+                    return res;
+                }
             }
             else
                 throw new Exception("Login or password is incorrect!");
